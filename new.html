@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WorkForce - Manage your team</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+<body>
+<script>
+	$(document).ready(
+   function()
+   {
+
+$(document).on('click', '.section', function(){
+    // do something here
+    var x = $(this).attr('id');
+   console.log(x);
+ //  m = y.slice(0,5);
+   sessionStorage.setItem('key3', x);
+   //sessionStorage.setItem('key2', m);
+//  console.log($(this).closest('h3').attr('id'));
+   document.location.href = 'addnew.html';
+});
+
+$(document).on('click','.clickbuilding',function()
+{
+var x = $(this).attr('id');
+console.log(x);
+sessionStorage.setItem('building',x);
+sessionStorage.setItem('buildingback',x);
+
+   document.location.href = 'mess.html';
+
+});
+
+$('#yellowlink').click(function()
+{
+document.location.href = 'allworkers.html'
+});
+   });
+
+	
+</script>
+<div>
+<div id="sectionwrapper">
+<div class="section" id="electrician" style="z-index: 4;">
+<img src="electrician.png" class="occup">
+<img src="plus.png" class="plus">
+<!--<div class="linkwrapper"><p>Electrician</p></div> -->
+</div>
+<div class="section alt" id="gardener">
+<img src="gardener.png" class="occup">
+<img src="plus.png" class="plus">
+<!--<div class="linkwrapper"><p>Gardener</p></div>-->
+</div>
+<div class="section alt" id="cleaner" style="z-index: 4;">
+<img src="cleaner.png" class="occup">
+<img src="plus.png" class="plus">
+<!--<div class="linkwrapper"><p>Maid</p></div>-->
+</div>
+<div class="section" id="chef">
+<img src="chef.png" class="occup">
+<img src="plus.png" class="plus">
+<!--<div class="linkwrapper"><p>Chef</p></div>-->
+</div>
+<div class="section" id="guard" style="z-index: 4;">
+<img src="guard.png" class="occup">
+<img src="plus.png" class="plus">
+<!--<div class="linkwrapper"><p>Security Guard</p></div>-->
+</div>
+<div class="section alt" id="carpenter">
+<img src="carpenter.png" class="occup">
+<img src="plus.png" class="plus">
+<!--<div class="linkwrapper"><p>Carpenter</p></div>-->
+</div>
+<div id="building">
+<div class="buildingtype"><img src="academicblock.png" class='clickbuilding' id="academicblock"><p>Academic Block</p></div>
+<div class="buildingtype"><img src="mess.png" class='clickbuilding' id="mess"><p>Mess</p></div>
+<div class="buildingtype"><img src="hostel.png" class='clickbuilding' id="hostel"><p>Hostel Block</p></div>
+</div>
+<div id="wholeforce">
+<div id="yellowlink">Our Workforce</div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

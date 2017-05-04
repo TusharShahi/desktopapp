@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>window.$ = window.jQuery = require('jquery');</script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<script>
+var z,y='',w;
+$(window).on('load',function()
+{
+	z = sessionStorage.getItem('building');
+    if(z == 'mess') { y = 'Messes';w = 'mess';}
+    else if( z == 'academicblock') {y= 'Academic Blocks'; w = 'academicblock';}
+    else if(z == 'hostel' ) {y = 'Hostel Blocks'; w='hostel';}
+      document.title = y + ' in the Campus';
+      console.log(y);
+});
+
+
+
+$(document).ready(function(){
+	
+$('#back').click(function()
+{
+
+document.location.href = 'new.html';
+});
+l = z + '.png'
+$("#buildingimage").attr('src',l);
+	var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+ var numofmess;
+connection.connect();
+ $sql = 'SELECT count(id) as count from ' + w;
+connection.query($sql, function (error, results, fields) {
+  if (error) throw error;
+  numofmess = results[0].count;
+  console.log(numofmess);
+});
+
+$sql2 = 'SELECT * from '+ w;
+/*connection.query($sql2, function (error, results, fields) {
+  if (error) throw error;
+  for(i=0;i<numofmess;i++)
+  	{
+  		$("h3:eq("+i+")").text(results[i].messname);
+        console.log(results[i].messname);
+      }
+}); */
+
+connection.query($sql2, function (error, results, fields) {
+  if (error) throw error;
+   for(i=0;i<numofmess;i++)
+   {
+   	if(i%2 == 0) {p=1; q=0;}
+   	else {p=0; q=1;}
+   	$("body").append(" <div class='mess mess"+i%2+"'><h3 id='"+ results[i].name +"''>"+results[i].name+"</h3><div class='requirements'><div class='workers" + p + "'><img src = 'carpenter.png' class=''><p>Carpenter      </p>  <p id='carpenters'>"+ results[i].carpenters + "</p></div><div class='workers" + q + "'><img src = 'cleaner.png' class=''><p>Cleaners</p><p id='cleaners'>" + results[i].cleaners + "</p></div><div class='workers" + p + "'><img src = 'electrician.png' class=''><p>Electricains</p><p id='electricians'>" + results[i].electricians + "</p></div><div class='workers" + q + "'><img src = 'guard.png' class=''><p>Security Guards</p><p id='guards'>" + results[i].guards + "</p></div><div class='workers" + p + "'><img src = 'chef.png' class=''><p>Chefs</p><p class='chefs' id= '" + results[i].chefs +"'>" + results[i].chefs + "</p></div><div class='workers" + q + "'><img src = 'gardener.png' class=''><p>Gardeners</p><p id='gardeners'>" + results[i].gardeners + "</p></div><div class='slots'><div class='slot1 sbuttons' id='"+results[i].id+"'>SLOT 1</div><div class='slot2 sbuttons' id='"+results[i].id+"'>SLOT 2</div><div class='slot3 sbuttons' id='"+results[i].id+"'>SLOT 3</div><div class='slot4 sbuttons' id='"+results[i].id+"'>SLOT 4</div><div class='slot5 sbuttons' id='"+results[i].id+"'>SLOT 5</div></div></div></div>");
+
+ sessionStorage.setItem(((results[i].name).toString()+'carpenters'),results[i].carpenters);
+ sessionStorage.setItem(((results[i].name).toString()+'gardeners'),results[i].gardeners);
+sessionStorage.setItem(((results[i].name).toString()+'electricians'),results[i].electricians);
+sessionStorage.setItem(((results[i].name).toString()+'chefs'),results[i].chefs);
+sessionStorage.setItem(((results[i].name).toString()+'guards'),results[i].guards);
+sessionStorage.setItem(((results[i].name).toString()+'cleaners'),results[i].cleaners);
+
+
+
+
+
+
+
+   }
+   
+
+
+   });
+
+$('#addnewbuilding').click(function()
+{
+document.location.href='addnewbuilding.html';
+
+});
+ connection.end();
+ //$("body").append("");
+
+
+ });
+</script>
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter"> -->
+<img src="back.png" id="back"> 
+</div>
+<div id='addnewbuilding'><div><img src='plus.png' id='addnewbuildingplus'><img src='' id='buildingimage'></div></div>
+<script>
+$(document).on('click', '.sbuttons', function(){
+    // do something here
+    var x = $(event.target).attr('id');
+    var y = $(event.target).attr('class');
+      
+   //console.log(x);
+   m = y.slice(0,5);
+   tryid = "#" + x; 
+   sessionStorage.setItem('key1', x);
+   sessionStorage.setItem('key2', m);
+   sessionStorage.setItem('buildingtype', z);
+   sessionStorage.setItem('buildingname',$('.mess h3').attr('id'));
+   document.location.href = 'slotsbackup.html';s
+   //var gardeners = $(event.target).closest('#guards').text();
+   //console.log(gardeners);
+   //sessionStorage.setItem()
+});
+</script>
+</body>
+</html>

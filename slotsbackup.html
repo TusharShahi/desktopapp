@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SLOTS</title>
+<script>window.$ = window.jQuery = require('jquery');</script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<script>
+var z,header2;
+var flag = new Array(7);
+totalgardeners=0,totalchefs=0,totalguards=0,totalelectricians=0,totalcarpenters=0,totalcleaners=0;
+ 
+$(window).on('load',function()
+{
+	  z = sessionStorage.getItem('key1');
+    z = z.toString();
+    w = sessionStorage.getItem('key2');
+    w = w.toString();
+    w = w.slice(4,5);
+    buildingtype =sessionStorage.getItem('buildingtype');
+    if(buildingtype == 'mess') y = 'M';else if(buildingtype =='hostel') y='H'; else if(buildingtype == 'academicblock') y='A'; 
+
+$('#slotsheader').text(sessionStorage.getItem('buildingname'));
+    document.getElementById('slotnum').innerHTML = "Slot " + w; 
+   
+});
+$(document).ready(function()
+{
+$('#back').click(function()
+{
+document.location.href = 'mess.html';
+});
+totalcarpenters = sessionStorage.getItem(sessionStorage.getItem('buildingname')+'carpenters');
+//console.log(totalcarpenters);
+totalchefs = sessionStorage.getItem(sessionStorage.getItem('buildingname')+'chefs');
+//console.log(totalchefs);
+totalguards = sessionStorage.getItem(sessionStorage.getItem('buildingname')+'guards');
+//onsole.log(totalguards);
+totalcleaners = sessionStorage.getItem(sessionStorage.getItem('buildingname')+'cleaners');
+///console.log(totalcleaners);
+totalgardeners = sessionStorage.getItem(sessionStorage.getItem('buildingname')+'gardeners');
+//console.log(totalgardeners);
+totalelectricians = sessionStorage.getItem(sessionStorage.getItem('buildingname')+'electricians');
+//console.log(totalelectricians);
+
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+
+ connection.connect();
+    var sql2 = 'SELECT workerid,slotnum,workertype FROM assigned where buildingid = ' + z + ' and buildingtype = "' + y + '" and slotnum = ' + w;
+    connection.query(sql2, function(error, results, fields) {
+         if (error) throw error;
+ console.log(sql2);
+// console.log(x);
+ //   console.log(j);
+    console.log(results.length);
+ for(i=0;i<results.length;i++)
+{    if(results[i].workertype == 'GUA') {console.log('yes'); totalguards--;}
+    else if(results[i].workertype == 'CHE') totalchefs--;
+    else if(results[i].workertype == 'CLE') totalcleaners--;
+    else if(results[i].workertype == 'ELE') totalelectricians--;
+    else if(results[i].workertype == 'CAR') totalcarpenters--;
+    else if(results[i].workertype == 'GAR') totalgardeners--;
+  
+}
+ 
+
+   if(totalcarpenters<0) totalcarpenters = 'Can spare ' + totalcarpenters.toString();
+    else if(totalcarpenters>0) { totalcarpenters = 'Need '  + totalcarpenters.toString(); 
+flag[0] = 1;
+//console.log('done');
+}
+    else totalcarpenters = 'Sufficient workforce';
+ 
+   if(totalchefs<0) totalchefs = 'Can spare ' + totalchefs.toString();
+    else if(totalchefs>0)
+    { totalchefs = 'Need '  + totalchefs.toString(); flag[1] = 1;
+
+//console.log('done');
+}
+    else totalchefs = 'Sufficient workforce';
+ 
+    if(totalcleaners<0) totalcleaners = 'Can spare ' + totalcleaners.toString();
+    else if(totalcleaners>0) {totalcleaners = 'Need '  + totalcleaners.toString();
+    flag[2] = 1; 
+//console.log('done 6th');
+}
+    else totalcleaners = 'Sufficient workforce';
+
+    if(totalelectricians<0) totalelectricians = 'Can spare ' + totalelectricians.toString();
+    else if(totalelectricians>0) 
+        {
+            totalelectricians = 'Need '  + totalelectricians.toString();
+    flag[3] = 1;
+//console.log('4th done');
+    }
+    else totalelectricians = 'Sufficient workforce';
+ 
+    if(totalgardeners<0) totalgardeners = 'Can spare ' + totalgardeners.toString();
+    else if(totalgardeners>0) { totalgardeners = 'Need '  + totalgardeners.toString();
+flag[4] = 1;
+///console.log('done');
+
+}
+    else totalgardeners = 'Sufficient workforce';
+
+    if(totalguards<0) totalguards = 'Can spare ' + totalguards.toString();
+    else if(totalguards>0) 
+        {
+            totalguards = 'Need '  + totalguards.toString();
+               flag[5]= 1;
+//console.log('done');
+}
+    else totalguards = 'Sufficient workforce';
+ 
+$('#allotcleaners p').text(totalcleaners);
+$('#allotgardeners p').text(totalgardeners);
+$('#allotelectricians p').text(totalelectricians);
+$('#allotchefs p').text(totalchefs);
+$('#allotcarpenters p').text(totalcarpenters);
+$('#allotguards p').text(totalguards);
+
+//var div = document.getElementsByClassName('slotsrow');
+var div = $('.slotsrow div div');
+console.log(div);
+//getElementsByTagName('div');
+
+//alert($('.allot').toArray());
+for(j=0;j<6;j++)
+{
+  if(flag[j] == 1)
+  {  console.log('yes');
+     div[j].className += ' clickable';
+     console.log('needed ' + (j).toString()); 
+  }
+}
+
+
+ });
+
+connection.end();
+  
+});
+   
+</script>
+<body>
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter">-->
+<img src="back.png" id="back"> 
+</div>
+<div class='slotsrow'>
+<h2 id='slotsheader'></h2>
+<h3 id='slotnum'></h3>
+<div id="assignwrapper">
+<div id='allotcarpenters' class='allot'>
+<img src='carpenter.png'>
+<p></p>
+</div>
+<div id='allotchefs' class='allot'>
+<img src='chef.png'>
+<p></p>
+</div>
+<div id='allotcleaners' class='allot'>
+<img src='cleaner.png'>
+<p></p>
+</div>
+<div id='allotelectricians' class='allot'>
+<img src='electrician.png'>
+<p></p>
+</div>
+<div id='allotgardeners' class='allot'>
+<img src='gardener.png'>
+<p></p>
+</div>
+
+<div id='allotguards' class='allot'>
+<img src='guard.png'>
+<p></p>
+</div>
+</div>
+</div>
+<script>
+$(document).on('click', '.clickable', function(){
+    // do something here
+    var a = $(this).attr('id');
+    var b = $(this).attr('class');
+ var w = sessionStorage.getItem('key2');
+    w = w.slice(4,5);      
+   //console.log(x);
+
+   sessionStorage.setItem('assign', a);
+   sessionStorage.setItem('slot', w);
+document.location.href = 'assign.html';
+ });
+</script>
+</body>
+</html>

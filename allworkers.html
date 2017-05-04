@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Records of Workers</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+<script>window.$ = window.jQuery = require('jquery');</script>
+</head>
+<body>
+<script>
+$(document).ready(function(){
+$('#back').click(function()
+{
+document.location.href = 'new.html';
+});
+
+$('#filter').click(function()
+{
+$('#filterdiv').toggle();
+
+});
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+connection.connect();
+var numofworkers;
+$sql = 'SELECT count(*) as count from workers';
+connection.query($sql, function (error, results, fields) {
+  if (error) throw error;
+  numofworkers = results[0].count;
+});
+
+$sql2 = 'SELECT * from workers';
+ 
+connection.query($sql2, function (error, results, fields) {
+  if (error) throw error;
+/*  for(i=0;i<numofworkers;i++)
+  {
+$('body').append("<div class=>");
+  }*/
+  for(i=0;i<numofworkers;i++)
+{  //console.log(results[i]);
+	var job;
+	if(results[i].workertype=='GUA') job = 'Security Guard';
+  else if(results[i].workertype=='CHE') job = 'Chef';
+  else if(results[i].workertype=='GAR') job = 'Gardener';
+  else if(results[i].workertype=='CAR') job = 'Carpenter';
+  else if(results[i].workertype=='ELE') job = 'Cleaner';
+  else if(results[i].workertype=='CLE') job = 'Cleaner';
+
+
+if(results[i].slot1 == '') results[i].slot1 = 'Free';
+if(results[i].slot2 == '') results[i].slot2 = 'Free';
+if(results[i].slot3 == '') results[i].slot3 = 'Free';
+if(results[i].slot5 == '') results[i].slot5 = 'Free';
+if(results[i].slot4 == '') results[i].slot4 = 'Free';
+j=i+1;
+$("#rows").append("<div class='workerrow workerrow" + i%2 + "'><div><p id='close' class='"+results[i].workerid+"'>&times</p><img src ='workers/worker" +((results[i].workerid%5)+1) + ".jpg'></div><div class='workerdetails'><span class='workername'>"+ results[i].workername+"</span><span class='job'>"+job+"</span><span class='age'>Age "+results[i].Age+"</span><span>" + results[i].Gender+"</span><span class='experience'>Experience "+results[i].Experience +" years</span><div class='workerslots'><div><p>SLOT 1</p><p>" +results[i].slot1 + "</p></div><div><p>SLOT 2</p><p></p>" +results[i].slot2 + "</div><div><p>SLOT 3</p><p>"+ results[i].slot3+"</p></div><div><p>SLOT 4</p>"+results[i].slot4+"<p></p></div><div><p>SLOT 5</p><p>"+ results[i].slot5+"</p></div></div></div></div>"); 
+}
+
+});
+connection.end(); });
+</script>
+<div id="fixed">
+
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter">  -->
+<img src="back.png" id="back"> 
+</div>
+</div>
+<div id='filterdiv'>
+<div id="filterbox">
+<form id="filterform">
+<div>
+<h3>Type of Worker</h3>
+<fieldset id="type">
+<input type="checkbox" name="gua" value="guard">Guard
+<input type="checkbox" name="ele" value="electrician">Electrician
+<input type="checkbox" name="cle" value="cleaner">Cleaner
+<input type="checkbox" name="che" value="chef">Chef
+<input type="checkbox" name="gar" value="gardener">Gardener
+<input type="checkbox" name="car" value="carpenter">Carpenter
+</div>
+</fieldset>
+
+</form> 
+  </div>
+
+</div>
+<div id="rows"></div>
+<script>
+$(document).on('click', '#close', function(){
+    // do something here
+    var b = $(this).attr('class');
+ 
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+connection.connect();
+console.log('clicked');
+connection.query('DELETE from workers WHERE workerid = ' + b, function (error, results, fields) {
+  if (error) throw error;
+});
+
+$(this).closest('div.workerrow').css('display','none');
+
+connection.query('DELETE from assigned WHERE workerid = ' + b, function (error, results, fields) {
+  if (error) throw error;
+});
+
+connection.end();
+ });
+
+
+</script>
+</body>
+</html>

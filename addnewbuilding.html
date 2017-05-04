@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script>
+	var z,y='';
+$(window).on('load',function()
+{
+	z = sessionStorage.getItem('building');
+    if(z == 'mess') y = 'mess';
+    else if( z == 'academicblock') y= 'academic block';
+    else if(z == 'hostel' ) y = 'hostel block';
+    document.title = 'Add new' + y;
+      console.log(y);
+    $('#heading2').html('Enter details of ' + z);
+  
+});
+$(document).ready(function()
+{
+
+$('#back').click(function()
+{
+document.location.href = 'mess.html';
+});
+
+
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+ 
+connection.connect();
+console.log(z);
+$('#coverbuilding img').attr('src',z + '.png');
+$('#myform2').submit(function() {
+	console.log("submit dabaya");
+    var $inputs = $('#myform2 :input');
+    var values = {};
+    $inputs.each(function() {
+        values[this.name] = $(this).val();
+    });
+   if((values.buildingname == '')||(values.numgua == '')||(values.numgar == '')||(values.numcar == '')||(values.numele == '')||(values.numche == '')||(values.numcle == ''))
+   {
+   	setTimeout(function() { alert('Please fill the complete form.');}, 100);
+   	valid=0;
+   }
+   else 
+   {
+ valid=1;  
+    name = values.buildingname;
+   }
+//if(z == 'mess') type = '';
+//else if( z== 'hostel') type = 'hostel';
+//else if(z == 'academicblock') type= 'academicblock';
+if(valid == 1)
+{
+	console.log(values.numcle);
+
+	console.log(values.numgua);
+var post  = {name: name, gardeners: values.numgar, carpenters: values.numcar,guards: values.numgua, electricians: values.numele,chefs: values.numche,cleaners: values.numcle};
+var query = connection.query('INSERT INTO ' + z + ' SET ?', post, function (error, results, fields) {
+  if (error) throw error;
+});
+console.log(query.sql);
+connection.end(); 
+}
+
+}); });
+
+
+</script>
+<body>
+<div id="addnewmain">
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter"> -->
+<img src="back.png" id="back"> 
+</div>
+<div id="coverbuilding">
+
+	<img src="">
+</div>
+<div id="formwrapper">
+<h2 id="heading2"></h2>
+<form id="myform2">
+<input type="text" name="buildingname" placeholder="Building Name" id="name" maxlength="20">
+<div>
+<img src="gardener.png">
+<input type="number" name="numgar" placeholder="Number" min="0" max="3" id="numgar">
+</div>
+<div><img src="guard.png">
+<input type="number" name="numgua" placeholder="Number" min="0" max="8" id="numgua">
+</div>
+<div><img src="carpenter.png">
+<input type="number" name="numcar" placeholder="Number" min="0" max="3" id="numcar">
+</div>
+<div><img src="chef.png">
+<input type="number" name="numche" placeholder="Number" min="0" max="12" id="numche">
+</div>
+<div><img src="cleaner.png">
+<input type="number" name="numcle" placeholder="Number" min="0" max="15" id="numcle">
+</div>
+<div><img src="electrician.png">
+<input type="number" name="numele" placeholder="Number" min="0" max="3" id="numele">
+</div>
+<input type="submit" name="confirm" value="Submit" id="submit">
+</form>
+</div>
+</div>
+
+</body>
+</html>

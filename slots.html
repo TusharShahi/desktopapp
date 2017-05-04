@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SLOTS</title>
+<script>window.$ = window.jQuery = require('jquery');</script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<script>
+var z,header2;
+var flag = new Array(7);
+var totalgardeners=0,totalchefs=0,totalguards=0,totalelectricians=0,totalcarpenters=0,totalcleaners=0;
+
+$(window).on('load',function()
+{
+	z = sessionStorage.getItem('key1');
+    z = z.toString();
+    w = sessionStorage.getItem('key2');
+    w = w.toString();
+    w = w.slice(4,5);
+     buildingtype =sessionStorage.getItem('buildingtype');
+     if(buildingtype == 'mess') y = 'M';else if(buildingtype =='hostel') y='H'; else if(buildingtype == 'academicblock') y='A'; 
+});
+$(document).ready(function()
+{
+$('#back').click(function()
+{
+document.location.href = 'mess.html';
+});
+$('#slotsheader').text(sessionStorage.getItem('buildingname'));
+//console.log(sessionStorage.getItem('buildingname'));
+var resultdata = 0;
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+console.log('id =' + z );
+function trial(callback)
+{ 
+$sql = 'SELECT * FROM ' + buildingtype + ' WHERE id = ' + z ;
+ console.log($sql);
+
+connection.query($sql, function (error, results) {
+  if (error) 
+    callback(err,null);
+else
+    callback(null,results);
+});
+}
+ trial(function(err,data)
+ {
+if(err) console.log(err);
+else {console.log(data);
+ resultdata = data;
+ }});  
+
+console.log(resultdata);
+ connection.end();
+});
+
+
+</script>
+<body>
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter">-->
+<img src="back.png" id="back"> 
+</div>
+<div class='slotsrow'>
+<h2 id='slotsheader'></h2>
+<h3 id='slotnum'></h3>
+<div id='allotguards'>
+<img src='guard.png'>
+<p></p>
+</div>
+<div id='allotchefs'>
+<img src='chef.png'>
+<p></p>
+</div>
+<div id='allotcleaners'>
+<img src='cleaner.png'>
+<p></p>
+</div>
+<div id='allotgardeners'>
+<img src='gardener.png'>
+<p><p>
+</div>
+<div id='allotelectricians'>
+<img src='electrician.png'>
+<p></p>
+</div>
+<div id='allotcarpenters'>
+<img src='carpenter.png'>
+<p></p>
+</div>
+</div>
+</body>
+</html>

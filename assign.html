@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assign Task</title>
+</head>   
+    
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script>
+	var z,w;
+
+$(window).on('load',function()
+{
+	z = sessionStorage.getItem('assign');
+	w = sessionStorage.getItem('slot');
+
+	z = z.slice(5,8);
+   
+});	$(document).ready(function()
+	{
+$('#back').click(function()
+{
+document.location.href = 'slotsbackup.html';
+});
+
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+
+connection.connect();
+$sql ="SELECT * from workers where workertype = '" +z + "' and (slot" + w + " = NULL OR slot" + w + " = '')";  
+connection.query($sql, function (error, results, fields) {
+  if (error) throzrror;
+  console.log(results);
+
+for(i=0;i<results.length;i++)
+{
+$("#rows").append("<div class='workerrow workerrow" + i%2 + "'><div><img id='close2' class='"+ results[i].workerid + " " + results[i].workername +"' src='plus.png' style='top: 20px; width: 5%;'><img src ='workers/worker" + ((results[i].workerid%5)+1) + ".jpg'></div><div class='workerdetails'><span class='workername'>"+ results[i].workername+"</span><span class='age'>Age "+results[i].Age+"</span><span class='experience'>Experience "+results[i].Experience +" years</span></div></div>"); 
+}
+});
+
+
+
+connection.end();
+
+
+	});
+</script>
+<body>
+
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter"> -->
+<img src="back.png" id="back"> 
+</div>
+<div id="workerselect">
+<p></p>
+</div>
+<div id="rows" style="margin-top: -20px"></div>
+
+<script>
+
+
+$(document).on('click', '#close2', function(){
+    // do something here
+    y = $(this).attr('class');
+ a = sessionStorage.getItem('key1');
+
+ b = sessionStorage.getItem('key2');
+
+c = sessionStorage.getItem('buildingname');
+console.log(c);
+
+bb = y.slice(2);
+//console.log(bb);
+    buildingtype =sessionStorage.getItem('buildingtype');
+    if(buildingtype == 'mess') p = 'M';else if(buildingtype =='hostel') p='H'; else if(buildingtype == 'academicblock') p='A'; 
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+connection.connect();
+y = y.substr(0, y.indexOf(' ')); 
+var post  = {Workerid: y, buildingid: a,slotnum: b.slice(4,5),workertype: z.toUpperCase(), assignid: null, buildingtype: p};
+var query = connection.query('INSERT INTO assigned SET ?', post, function (error, results, fields) {
+  if (error) throw error;
+});
+console.log(query.sql);
+
+quer = 'UPDATE workers SET slot' + b.slice(4,5) + ' = "'+ c + '" WHERE workerid = '+ y;
+connection.query(quer, function (error, results, fields) {
+  if (error) throw error;
+  // ... 
+});
+console.log(quer);      
+
+
+$(this).closest('div.workerrow').css('display','none');
+
+
+connection.end(); 
+   document.location.href = 'slotsbackup.html';
+   //var gardeners = $(event.target).closest('#guards').text();
+   //console.log(gardeners);
+   //sessionStorage.setItem()
+});
+</script>
+
+</body>
+</html>

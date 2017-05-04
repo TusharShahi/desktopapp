@@ -1,0 +1,645 @@
+html,body,a
+{
+margin: 0;
+padding: 0;
+width: 100%; 
+text-align: center;
+text-decoration: none;
+color: #000;
+}
+
+#nav
+{
+	width: 100%;
+	background-color: #dfdce3;
+	height: 80px;
+}
+.navbuttons
+{
+	position: fixed;
+	background-color: transparent;
+	border: 2px solid #ccc;
+	right: 100px;
+	top: 100px;
+	width: 40px;
+	height: 40px;
+	color: #ccc;
+	font-size: 1.2em;
+	display: inline-block;
+	vertical-align: middle;
+}
+#bgimage
+{
+	width: 100%;
+	margin: 0;
+	text-align: center;
+}
+#bgimage img
+{
+	width: 100%;
+	
+}
+#bgimage h2
+{
+	left: 10%;
+	font-size: 2em;
+	color: white;
+	font-family: Verdana;
+	font-weight: bold;  
+	position: absolute;
+	top: 200px;
+	z-index: 200;
+}
+#sectionwrapper
+{
+width: 100%;
+}
+.section
+{   text-align: center; 
+	display: inline-block;
+	width: 50%;
+	background-color: #4abdac; 
+    padding-top: 50px;
+    padding-bottom: 50px;
+	/* transition: all 1 ease; */
+	 float: left;
+	 position: relative;
+	 height: 100px;
+}
+.section:hover
+{
+		 cursor: pointer;
+}
+.section:hover .occup
+{
+     left: 350px;
+	 
+}
+.section:hover .plus
+{
+left: 200px;
+}
+.plus
+{   position: absolute;
+	left: -100px;
+	z-index: 2;
+    transition: all 1s ease;
+}
+
+.occup
+{    width: 10%;	
+	
+	 min-width: 100px;
+	 z-index: 5;
+	 position: absolute;
+	 top: 40px;
+     left: 200px;
+       transition: all 1s ease;
+}
+.alt
+{
+	background-color: #fc4a1a;
+}
+#building
+{
+	width: 100%;
+	background-color: #dfdce3;
+}
+.buildingtype img:hover
+{
+	cursor: pointer;
+}
+#wholeforce
+{
+	width: 100%;
+	background-color: #f7b733;
+}
+.linkwrapper
+{
+	text-align: center;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 100px;
+    left: 10%;
+}
+.linkwrapper p
+{
+	margin: 0 auto;
+    font-size: 1.5em;
+}
+#building
+{
+	width: 100%;
+	text-align: center;
+	padding-bottom: 100px;
+}
+#building>div
+{
+	margin-top: 100px;
+	width: 30%;
+	display: inline-block;
+}
+#building img
+{
+	width: 40%;
+}
+#wholeforce
+{
+	background-color: #f7b733;
+	padding-bottom: 40px;
+	padding-top: 40px;
+
+}
+#wholeforce>div
+{
+	background-color: #dfdce3;
+	color: #f7b733;
+	width: 100px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-radius: 5px;
+    margin: 0 auto;
+    text-align: center;
+}
+#wholeforce>div:hover
+{
+	background-color: #ccc;
+	cursor: pointer;
+}
+#wholeforce>div a
+{
+	text-decoration: none;
+}
+.requirements
+{
+	text-align: center;
+	padding-bottom: 20px;
+}
+.requirements img
+{
+	width: 20%;
+    margin-top: 20px;
+}
+.mess
+{
+	width: 100%;
+	background-color: #4abdac; 
+   margin: 0;
+   padding-top: 40px;
+   z-index: 2;
+   position: relative;
+}
+.mess h3
+{
+	text-align: center;
+	color: #fff;
+	font-size: 1.5em;
+	margin-top: 0;
+}
+.mess0
+{
+	background-color: #fc4a1a;
+
+}
+.workers1
+{
+	background-color: #fc4a1a;
+}
+.workers1:hover
+{
+	background-color: #e03e12;
+}
+
+.workers0
+{
+	background-color: #4abdac; 
+}
+.workers0:hover
+{
+	background-color: #369083;
+}
+.workers1,.workers0
+{ display: inline-block;
+  width: 20%;
+}
+.slot
+{
+	width: 200px;
+	text-align: center;
+	background-color:#dfdce3;
+	border-radius: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px; 
+	margin: 20px auto;
+    
+}
+.slot0 a
+{
+	color:  #fc4a1a;
+}
+.slot1 a
+{
+		color: #4abdac; 
+
+}
+.slots 
+{   margin-top: 40px;
+	text-align: center;
+	height: 100%;
+	margin-bottom: 20px;
+}
+.slots div
+{   display: inline-block;
+	width: 16%;
+	background-color:#dfdce3;
+
+	padding-top: 20px;
+	padding-bottom: 20px; 
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.slots div:hover,.slot:hover
+{
+	background-color: #ccc;
+	cursor: pointer;
+}
+
+#workersheader
+{
+	width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: #fff;
+    background-color:#dfdce3; 
+    text-align: center;
+}
+#workertoprow
+{
+	position: relative;
+	height: 60px;
+	padding-top: 10px;
+	background: #adbbff;
+	z-index: 2;
+}
+#back
+{
+	width: 40px;
+	position: absolute;
+	right: 40px;
+	vertical-align: middle;
+	top: 15px;
+}
+#filter,#back
+{
+	position: absolute;
+	width: 40px;
+	top: 15px;
+	transition: all 0.5s ease;
+}
+#back
+{  
+	right: 40px;
+}
+#filter
+{
+	left: 40px;
+}
+#filter:hover,#back:hover
+{
+	width: 50px;
+	top: 10px;
+}
+
+#rows
+{
+	margin-top: 60px;
+	width: 100%;
+}
+#filterdiv
+{
+	position: fixed;
+	top: 60px;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	display: none;
+	background-color: #ccc;
+	z-index: 2;
+}
+#filterdiv h3
+{
+	text-align: center;
+}
+#filterform
+{
+	width: 100%;
+	padding: 0;
+	margin: 40px auto;
+}
+fieldset
+{
+width: 80%;
+margin: 0 auto;
+border: 0;  
+text-align: center;
+}
+#type input
+{
+	display: inline-block;
+
+}
+
+
+#workertoprow>img:hover
+{
+	cursor: pointer;
+}
+.workerrow img
+{
+width: 20%;
+margin: 0 auto;
+margin-bottom: 40px; 
+}
+
+.workerrow
+{   padding-top: 40px;
+	background-color: #dfdce3;
+	position: relative;
+	text-align: center;
+	filter: none;
+     
+	transition: all 0.3s ease;
+}
+
+.workerrow1
+{
+	background-color: #ccc;
+	
+}
+.workerslots
+{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.workerslots>div
+{
+	border-radius: 100%;
+	background-color: #72ad2a; 
+	height: 120px;
+	width: 120px;
+	border: 1px solid #fff;
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.workerslots span
+{
+	padding-top: 10px;
+}
+#close,#close2
+{
+position: absolute;
+top: 0px;
+right: 20px;
+font-size: 40px;
+font-weight: bold;
+}
+span
+{
+	border-right: 1px solid #111;
+	padding-left: 10px;
+	padding-right: 10px;
+     
+}
+.experience
+{
+	border: none;
+}
+
+.backmodal
+{
+	position: fixed;
+	display: none;
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 100px;
+    margin-bottom: 100px;
+    background-color: red;
+    height: 400px; 
+    z-index: 20;
+    
+}
+.display
+{
+	display: block;
+}
+.blur
+{
+	transition: all 0.8s ease; 
+	filter: blur(2px);
+}
+#fixed
+{   width: 100%;
+	position: fixed;
+	top: 0px;
+	clear: both;
+   z-index: 22;
+}
+
+.slotsrow
+{
+	width: 100%;
+background-color: #4abdac; 
+margin: 0;
+padding-top: 30px;
+padding-bottom: 20px;
+}
+.slotsrow1
+{
+	background-color: #fc4a1a;
+}
+.slotsrow h3
+{
+	padding: 0;
+	margin-bottom: 40px;
+}
+.slotsrow>div
+{   display: inline-block;
+	width: 32%;
+}
+.slotsrow img
+{
+	width: 40%;
+	display: inline-block;
+}
+.slotsrow p
+{
+	font-family: 1.2em;
+
+}
+
+#coverworker,#coverbuilding
+{
+	width: 100%;
+	background-color: #fc4a1a;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 100px;
+}
+#coverworker img,#coverbuilding img
+{
+	width: 20%;
+}
+#addnewmain
+{
+	text-align: center;
+	width: 100%;
+	/*background-color: #4155b4;*/
+	background-color: #543d95;
+		height: 100%;
+		overflow: auto;
+}
+#formwrapper h2
+{
+	padding-bottom: 20px;
+	padding-top: 30px;
+
+}
+#formwrapper
+{
+	width: 60%;
+	background-color: #f7b733;
+    margin: 40px auto;
+    padding-bottom: 30px;
+}
+form
+{
+	width: 60%;
+    margin: 20px auto;
+    text-align: left;
+    padding-left: 160px;
+}
+input
+{   border: none;
+	padding: 4px 10px 4px 2px;
+	display: block;
+	background-color: #dfdce3;
+	border-left: 4px solid #504e54;  
+    margin: 20px;
+}
+#exp,#age,#gender
+{
+	width: 25%;
+	display: inline-block;
+	margin-right: 0px;
+}
+#name
+{
+	width: 62%;
+}
+#gender
+{
+	display: block;
+}
+#submit
+{
+	width: 20%;
+	color: #aaa;
+	background-color: #504e54;
+	border: none;
+}
+#addnewbuilding
+{
+	background-color: #dfdce3;
+	text-align: center;
+	width: 100%;
+	height: 400px;
+}
+#addnewbuilding div
+{
+	margin: 0 auto;
+    width: 60%; 
+    position: relative;
+    height: 100%;
+}
+
+#buildingimage
+{
+	position: absolute;
+    bottom: 200px;
+    transition: all 0.8s ease;
+    width: 30%;
+    left: 35%;
+    margin: 0 auto;
+}
+#addnewbuildingplus
+{   
+	position: absolute;
+	bottom: -100px;
+    transition: all 0.8s ease;
+ width: 10%;
+ left: 45%;
+  }
+#addnewbuilding:hover #buildingimage
+{	
+bottom: 500px;
+}
+#addnewbuilding:hover
+{
+
+cursor: pointer;	
+}
+#addnewbuilding:hover #addnewbuildingplus
+{
+bottom: 200px;
+}
+#myform2
+{
+width: 60%;
+padding-left: 0px;}
+#myform2 div
+{
+	width: 40%;
+	text-align: center;
+
+display: inline-block;
+margin: 4%;
+}
+#myform2 img
+{
+	width: 80%;
+	margin: 0 auto;
+}
+#myform2 input
+{
+	
+	display: block;
+}
+.clickable:hover
+{
+	cursor: pointer;
+		background-color: #a94b31;
+
+}
+#assignwrapper
+{
+	width: 80%;
+	padding: 10%;
+	background-color: #fc4a1a;;
+}
+.allot
+{
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+#assignwrapper div
+{
+display: inline-block;
+width: 30%;
+}
+#close2:hover,#close:hover
+{
+	cursor: pointer;
+}

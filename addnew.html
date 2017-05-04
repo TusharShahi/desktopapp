@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add new member</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>window.$ = window.jQuery = require('jquery');</script>
+
+</head>
+</head>
+<body>
+<script>
+var z,name='',age='',gender='',experience='',type='',valid=0;
+$(window).on('load',function()
+{
+	z = sessionStorage.getItem('key3');
+    document.title = 'Add new ' + z;
+    $('#heading').html('Enter details of ' + z);
+});
+	
+	$(document).ready(function()
+	{
+$('#back').click(function()
+{      
+	  console.log('clicked');
+	  document.location.href = 'new.html';
+});
+
+
+		var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'newapp'
+});
+ 
+connection.connect();
+console.log(z);
+$('#coverworker img').attr('src',z + '.png');
+$('#myform').submit(function() {
+    var $inputs = $('#myform :input');
+    var values = {};
+    $inputs.each(function() {
+        values[this.name] = $(this).val();
+    });
+   if((values.workername == '')||(values.experience == '')||(values.age == '')||(values.gender ==''))
+   {
+   	setTimeout(function() { alert('Please fill the complete form.');}, 100);
+   	valid=0;
+   }
+   else if(values.workername.indexOf(' ')<=0)
+   {
+   	setTimeout(function() { alert('Please fill valid full name.');}, 100);
+    valid=0;
+   }
+   else if((values.gender!='m'&&values.gender!='M'&&values.gender!='F'&&values.gender!='f'))
+   {
+   	setTimeout(function() { alert('Please fill valid gender.');}, 100);
+    valid = 0;
+   }
+   else 
+   {
+   	name = values.workername;
+ valid=1;  }
+   if(valid == 1)
+    name = values.workername;experience = values.experience;age = values.age;gender = (values.gender).toUpperCase();
+   
+if(z == 'chef') type = 'CHE';
+else if( z== 'cleaner') type = 'CLE';
+else if(z == 'carpenter') type= 'CAR';
+else if(z == 'gardener') type = 'GAR';
+else if(z == 'electrician') type= 'ELE';
+else if(z == 'guard') type = 'GUA';
+if(valid == 1)
+{
+var post  = {workername: name, workertype: type, workerid: null, slot1: '', slot2: '', slot3: '', slot4: '',slot5: '',Gender: gender,Age: age, Experience: experience};
+var query = connection.query('INSERT INTO workers SET ?', post, function (error, results, fields) {
+  if (error) throw error;
+});
+console.log(query.sql);
+connection.end(); 
+}
+});
+
+
+});
+
+</script>
+<div id="addnewmain">
+<div id="workertoprow">
+<!--<img src="controls.png" id="filter">-->
+<img src="back.png" id="back"> 
+</div>
+<div id="coverworker">
+
+	<img src="">
+</div>
+<div id="formwrapper">
+<h2 id="heading"></h2>
+<form id="myform">
+<input type="text" name="workername" placeholder="Full Name" id="name">
+<input type="number" name="age" placeholder="Age" min="18" max="50" id="age">
+<input type="number" name="experience" min="0" max="15" placeholder="Experience" id="exp">
+<input type="text" name="gender" maxlength="1" id="gender" placeholder="Gender(M or F)">
+<input type="submit" name="confirm" value="Submit" id="submit">
+</form>
+</div>
+</div>
+</body>
+</html>
